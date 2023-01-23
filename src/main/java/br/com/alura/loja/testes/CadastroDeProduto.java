@@ -13,19 +13,22 @@ public class CadastroDeProduto {
 
 	public static void main(String[] args) {
 		Categoria celulares = new Categoria("CELULARES");
-		Produto celular = new Produto("Xiaomi Redmi", "Muito legal", new BigDecimal("800"), celulares);
-
 		EntityManager entityManager = JPAUtil.getEntityManager();
-		ProdutoDao produtoDao = new ProdutoDao(entityManager);
-		CategoriaDao categoriaDao = new CategoriaDao(entityManager);
-
 		entityManager.getTransaction().begin();
 
-		categoriaDao.cadastrar(celulares);
-		produtoDao.cadastrar(celular);
+		entityManager.persist(celulares);
+		celulares.setNome("XPTO");
 
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		entityManager.flush();
+		entityManager.clear();
+
+		celulares = entityManager.merge(celulares);
+		celulares.setNome("1234");
+		entityManager.flush();
+		entityManager.clear();
+		entityManager.remove(celulares);
+		entityManager.flush();
+
 	}
 
 }
