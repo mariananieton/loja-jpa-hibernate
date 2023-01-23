@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 public class Produto {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_PRODUTO")
 	private Long id;
 	@Column(name = "NM_PRODUTO")
