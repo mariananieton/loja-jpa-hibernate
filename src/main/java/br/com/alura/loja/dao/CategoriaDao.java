@@ -1,6 +1,7 @@
 package br.com.alura.loja.dao;
 
 import br.com.alura.loja.modelo.Categoria;
+import br.com.alura.loja.modelo.Produto;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -33,5 +34,12 @@ public class CategoriaDao {
 	public List<Categoria> buscarTodos() {
 		String jpql = "SELECT c FROM Categoria c";
 		return entityManager.createQuery(jpql, Categoria.class).getResultList();
+	}
+
+	public List<Categoria> buscarPorNome(String nome) {
+		String jpql = "SELECT c FROM Categoria c WHERE c.nome = :nome";
+		return entityManager.createQuery(jpql, Categoria.class)
+				.setParameter("nome", nome)
+				.getResultList();
 	}
 }
