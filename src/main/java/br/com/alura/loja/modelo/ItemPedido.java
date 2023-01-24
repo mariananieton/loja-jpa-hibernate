@@ -50,6 +50,9 @@ public class ItemPedido {
     public int getQuantidade() {
         return quantidade;
     }
+    public BigDecimal getValor(){
+        return precoUnitario.multiply(new BigDecimal(quantidade));
+    }
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;

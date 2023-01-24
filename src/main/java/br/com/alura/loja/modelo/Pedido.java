@@ -16,12 +16,12 @@ public class Pedido {
     @Column(name = "ID_PEDIDO")
     private Long id;
     @Column(name = "NR_VALOR_TOTAL")
-    private BigDecimal valorTotal;
+    private BigDecimal valorTotal = BigDecimal.ZERO;
     @Column(name = "DT_CRIACAO")
     private LocalDate data = LocalDate.now();
     @ManyToOne
     private Cliente cliente;
-    @OneToMany(mappedBy = "pedido")
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<ItemPedido> itens = new ArrayList<>();
 
     public Pedido() {
@@ -34,6 +34,7 @@ public class Pedido {
     public void adicionarItem(ItemPedido item) {
         item.setPedido(this);
         this.itens.add(item);
+        this.valorTotal = this.valorTotal.add(item.getValor());
     }
 
     public Long getId() {
